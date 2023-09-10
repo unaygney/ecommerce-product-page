@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-
 //Icons
 import Logo from "../assets/logo.svg";
 import HamburgerBtn from "../assets/Hamburger.svg";
@@ -11,7 +10,7 @@ import { Items } from "./constants";
 
 function Header() {
   const [isActive , setIsActive] = useState(false)
-  console.log(isActive)
+  
   return (
     <header className="container mx-auto flex items-center md:h-[110px] h-[68px] border-b-2 border-slate-300">
       <div className="flex md:hidden align-center m-4">
