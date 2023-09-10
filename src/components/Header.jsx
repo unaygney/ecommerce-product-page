@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Items } from "./constants";
 //Icons
 import Logo from "../assets/logo.svg";
 import HamburgerBtn from "../assets/Hamburger.svg";
@@ -6,7 +7,6 @@ import Basket from "../assets/Basket.svg";
 import ProfilePic from "../assets/image-avatar.png";
 import Close from "../assets/Close.svg";
 
-import { Items } from "./constants";
 
 function Header() {
   const [isActive , setIsActive] = useState(false)
