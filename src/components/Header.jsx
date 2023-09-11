@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Items } from "./constants";
+
 //Icons
 import Logo from "../assets/logo.svg";
 import HamburgerBtn from "../assets/Hamburger.svg";
@@ -10,8 +11,27 @@ import Close from "../assets/Close.svg";
 function Header() {
   const [isActive, setIsActive] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
+  const navRef = useRef(null);
+  const cardRef = useRef(null);
 
-  console.log(isCardActive);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsActive(false);
+      }
+
+      if (cardRef.current && !cardRef.current.contains(event.target)) {
+        setIsCardActive(false);
+      }
+    }
+
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className="container mx-auto flex items-center md:h-[110px] h-[68px] border-b-2 z-10 border-slate-300">
       <div className="flex md:hidden align-center m-4">
@@ -48,6 +68,7 @@ function Header() {
         }  `}
       ></div>
       <nav
+        ref={navRef}
         className={`bg-white flex flex-col gap-10 absolute p-5 top-0 left-0 bottom-0 z-30 w-[70%] ${
           isActive ? "" : "hidden"
         } `}
@@ -73,6 +94,7 @@ function Header() {
       <div className="flex ml-auto sm:gap-11 gap-8 flex-shrink-0  relative">
         <button
           className="cursor-pointer  "
+          ref={cardRef}
           onClick={() => setIsCardActive(!isCardActive)}
         >
           <img src={Basket} alt="basket image " />
@@ -85,10 +107,10 @@ function Header() {
             </div>
 
             <div className="flex-1 flex items-center justify-center">
-              <p className="font-bold text-sm text-[#69707D] ">Your cart is empty.</p>
+              <p className="font-bold text-sm text-[#69707D] ">
+                Your cart is empty.
+              </p>
             </div>
-
-
           </div>
         )}
 
