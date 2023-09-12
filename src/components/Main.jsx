@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Products } from "./constants";
 
 //Images
@@ -34,6 +34,22 @@ function Main({ setItemNumber }) {
   const [number, setNumber] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [isDektop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1028); // Örnek bir mobil sınır
+    };
+
+    // Başlangıçta boyutu kontrol edin ve yeniden boyutlandırma işlemcisini ekleyin
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Temizleme işlemcisini kaldırın
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isActive , isDektop]);
 
   const setPrevNumber = () => {
     if (number > 0) {
@@ -73,7 +89,7 @@ function Main({ setItemNumber }) {
               <img src={Previous} alt="" />
             </button>
             <img
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full "
               src={Product[selectedImage]}
               alt="product image"
               onClick={() => setIsActive(!isActive)}
@@ -143,7 +159,7 @@ function Main({ setItemNumber }) {
         {/* Overlay */}
         <div
           className={`fixed top-0 right-0 left-0  w-full h-full bg-black bg-opacity-90 z-10 flex-col  items-center justify-center gap-10  ${
-            isActive ? "flex" : "hidden"
+            isActive && isDektop ? "flex" : "hidden"
           } `}
         >
           <div className="w-[550px] h-[550px] relative   opacity-1">
