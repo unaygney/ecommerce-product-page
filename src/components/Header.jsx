@@ -7,8 +7,10 @@ import HamburgerBtn from "../assets/Hamburger.svg";
 import Basket from "../assets/Basket.svg";
 import ProfilePic from "../assets/image-avatar.png";
 import Close from "../assets/Close.svg";
+import CardPicture from "../assets/image-product-1-thumbnail.jpg";
+import TrashSvg from "../assets/Trash.svg";
 
-function Header() {
+function Header({ itemNumber, setItemNumber }) {
   const [isActive, setIsActive] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
   const navRef = useRef(null);
@@ -24,7 +26,6 @@ function Header() {
         setIsCardActive(false);
       }
     }
-
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -73,12 +74,8 @@ function Header() {
           isActive ? "" : "hidden"
         } `}
       >
-        <button>
-          <img
-            src={Close}
-            onClick={() => setIsActive(!isActive)}
-            alt="close button"
-          />
+        <button onClick={() => setIsActive(!isActive)}>
+          <img src={Close} alt="close button" />
         </button>
         <ul className=" flex flex-col gap-5">
           {Items.map((item) => (
@@ -91,12 +88,21 @@ function Header() {
         </ul>
       </nav>
       {/* basket */}
-      <div className="flex ml-auto sm:gap-11 gap-8 flex-shrink-0  relative">
+      <div
+        ref={cardRef}
+        className="flex ml-auto sm:gap-11 gap-8 flex-shrink-0  relative"
+      >
         <button
-          className="cursor-pointer  "
-          ref={cardRef}
+          className="cursor-pointer relative   "
           onClick={() => setIsCardActive(!isCardActive)}
         >
+          {itemNumber ? (
+            <div className="absolute -right-2 top-0 bg-[#FF7E1B] text-white px-[6px] py-[2px] rounded-xl ">
+              {itemNumber}
+            </div>
+          ) : (
+            ""
+          )}
           <img src={Basket} alt="basket image " />
         </button>
         {/* Item Card */}
@@ -106,11 +112,43 @@ function Header() {
               <h4 className="font-bold ">Card</h4>
             </div>
 
-            <div className="flex-1 flex items-center justify-center">
-              <p className="font-bold text-sm text-[#69707D] ">
-                Your cart is empty.
-              </p>
-            </div>
+            {itemNumber ? (
+              <>
+                <div className="flex-1 flex flex-col items-center gap-6 p-6">
+                  <div className="flex gap-4">
+                    <img
+                      className="w-[50px] h-[50px] rounded-[10px]"
+                      src={CardPicture}
+                      alt="product image"
+                    />
+                    <div className="flex flex-col">
+                      <p className="text-[#69707D] text-sm ">
+                        Fall Limited Edition Sneakers
+                      </p>
+                      <p className="text-[#69707D] text-sm ">
+                        $125.00 x {itemNumber}{" "}
+                        <span className="font-bold text-[#1D2026]">
+                          ${itemNumber * 125}.00{" "}
+                        </span>
+                      </p>
+                    </div>
+                    <button onClick={() => setItemNumber(0)}>
+                      <img src={TrashSvg} alt="clear button" />
+                    </button>
+                  </div>
+
+                  <button className="w-full bg-[#FF7E1B] py-5 rounded-xl text-white font-bold ">
+                    Checkout
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex-1  flex items-center justify-center">
+                <p className="font-bold text-sm text-[#69707D] ">
+                  Your cart is empty.
+                </p>
+              </div>
+            )}
           </div>
         )}
 

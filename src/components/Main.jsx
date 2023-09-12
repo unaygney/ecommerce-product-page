@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Products } from "./constants";
 
 //Images
@@ -10,8 +10,8 @@ import Product1Thumbnail from "../assets/image-product-1-thumbnail.jpg";
 import Product2Thumbnail from "../assets/image-product-2-thumbnail.jpg";
 import Product3Thumbnail from "../assets/image-product-3-thumbnail.jpg";
 import Product4Thumbnail from "../assets/image-product-4-thumbnail.jpg";
-import Minus from '../assets/Minus.svg'
-import Plus from '../assets/icon-plus.svg'
+import Minus from "../assets/Minus.svg";
+import Plus from "../assets/icon-plus.svg";
 
 const productImage = [
   Product1Thumbnail,
@@ -20,8 +20,14 @@ const productImage = [
   Product4Thumbnail,
 ];
 
-function Main() {
+function Main({ itemNumber, setItemNumber }) {
+  const [number , setNumber ] = useState(0)
 
+  const setPrevNumber = () => {
+    if (number > 0) {
+      setNumber((prev) => prev - 1);
+    }
+  };
   return (
     <main className="container mx-auto flex-1  md:mt-14 flex gap-[125px]   justify-center ">
       <div className="flex flex-col gap-8 mt-4 md:mt-0">
@@ -66,11 +72,17 @@ function Main() {
 
         <div className="flex gap-4">
           <div className="w-[157px] h-[56px] bg-[#F7F8FD] flex items-center px-4  justify-between">
-            <button><img src={Minus} alt="previous button" /></button>
-            <p className="">0</p>
-            <button><img src={Plus} alt="next button" /></button>
+            <button onClick={setPrevNumber}>
+              <img src={Minus} alt="previous button" />
+            </button>
+            <p className="">{number}</p>
+            <button onClick={() => setNumber((prev) => prev + 1)}>
+              <img src={Plus} alt="next button" />
+            </button>
           </div>
-          <button className="w-[272px] h-[56px] bg-[#FF7E1B] shadow-md text-white font-bold rounded-xl transition delay-75 duration-75 ease-in-out hover:opacity-70">Add to Card</button>
+          <button onClick={() => setItemNumber(number)} className="w-[272px] h-[56px] bg-[#FF7E1B] shadow-md text-white font-bold rounded-xl transition delay-75 duration-75 ease-in-out hover:opacity-70">
+            Add to Card
+          </button>
         </div>
       </div>
     </main>
