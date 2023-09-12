@@ -34,7 +34,7 @@ function Header({ itemNumber, setItemNumber }) {
   }, []);
 
   return (
-    <header className="container mx-auto flex items-center md:h-[110px] h-[68px] border-b-2 z-10 border-slate-300">
+    <header className="container mx-auto flex items-center h-[68px] md:h-[110px]  border-b-2 z-10 border-slate-300">
       <div className="flex md:hidden align-center m-4">
         <button
           onClick={() => setIsActive(!isActive)}
@@ -152,7 +152,7 @@ function Header({ itemNumber, setItemNumber }) {
           </div>
         )}
 
-        <div className="w-[50px] h-[50px] cursor-pointer flex-shrink-0 hover:border-orange-500 rounded-full hover:border-2">
+        <div className="lg:w-[50px] lg:h-[50px] w-6 h-6 cursor-pointer flex-shrink-0 hover:border-orange-500 rounded-full hover:border-2">
           <img
             className=" rounded-full"
             src={ProfilePic}
