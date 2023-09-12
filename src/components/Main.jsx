@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Products } from "./constants";
 
 //Images
@@ -49,7 +49,7 @@ function Main({ setItemNumber }) {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isActive , isDektop]);
+  }, [isActive, isDektop]);
 
   const setPrevNumber = () => {
     if (number > 0) {
