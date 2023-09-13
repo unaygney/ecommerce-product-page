@@ -49,11 +49,7 @@ Users should be able to:
 - [React](https://reactjs.org/) - JS library
 - [Tailwind] (https://tailwindcss.com/) - CSS Framerwork
 
-
-
-
-
 ## Author
 
-- Website - [Add your name here](https://www.guneyunay.com)
+- Website - [Guney Unay](https://www.guneyunay.com)
 - Frontend Mentor - [@unaygney](https://www.frontendmentor.io/profile/unaygney)
